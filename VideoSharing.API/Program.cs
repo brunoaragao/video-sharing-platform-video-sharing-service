@@ -14,7 +14,7 @@ public class Program
             var context = services.GetRequiredService<VideoSharingContextSeed>();
             context.Seed();
         }
-        
+
         host.Run();
     }
 

@@ -6,15 +6,17 @@ Created as part of the [Alura Challenge](https://www.alura.com.br/challenge-back
 
 ## Getting Started
 
-:warning: This project is a submodule of the [video-sharing-platform](github.com/brunoaragao/video-sharing-platform) project. If you want to run the entire project, please follow the instructions in the main repository.
+:warning: This project is a submodule of the [video-sharing-platform](https://github.com/brunoaragao/video-sharing-platform) project. If you want to run the entire project, please follow the instructions in the main repository.
 
 If you want to run this service only, please follow the instructions below.
 
 ### Prerequisites
+
 1. Install the .NET 7 SDK from [here](https://dotnet.microsoft.com/download/dotnet/7.0)
 2. Install the dotnet-user-secrets tool using the command `dotnet tool install --global dotnet-user-secrets`
 
 ### Setup
+
 1. Clone this repository
 2. In the project's root folder, run the following command to set the connection string for the PostgreSQL database:
     ```
@@ -31,6 +33,7 @@ The service exposes a REST API that can be used to authenticate users. The API i
 
 
 ## How to test
+
 The service has a set of unit tests that can be run using the `dotnet test` command.
 
 ## Built With
@@ -46,7 +49,7 @@ The service has a set of unit tests that can be run using the `dotnet test` comm
 
 ## Authors
 
-- **[Bruno Aragão](github.com/brunoaragao)**
+- **[Bruno Aragão](https://www.github.com/brunoaragao)**
 
 ## License
 

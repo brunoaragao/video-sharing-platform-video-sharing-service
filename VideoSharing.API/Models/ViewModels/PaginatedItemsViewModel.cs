@@ -13,7 +13,7 @@ public class PaginatedItemsViewModel<T>
     }
 
     public int PageIndex { get; private set; }
-    
+
     public int PageSize { get; private set; }
 
     public int TotalItems { get; private set; }

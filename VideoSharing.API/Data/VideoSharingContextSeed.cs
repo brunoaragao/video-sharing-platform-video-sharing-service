@@ -1,5 +1,5 @@
-using AluraChallenge.VideoSharingPlatform.Services.VideoSharing.API.Models;
 using Microsoft.EntityFrameworkCore;
+using AluraChallenge.VideoSharingPlatform.Services.VideoSharing.API.Models;
 
 namespace AluraChallenge.VideoSharingPlatform.Services.VideoSharing.API.Data;
 
