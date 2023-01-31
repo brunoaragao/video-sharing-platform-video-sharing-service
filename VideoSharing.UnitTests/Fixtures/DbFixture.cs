@@ -41,7 +41,7 @@ public class DbFixture : IDisposable
             new() { Title = "Video 5", Description = "Description 5", Url = "https://www.youtube.com/watch?v=5", CategoryId = 1 }
         };
     }
-    
+
     private static IEnumerable<Category> GetFakeCategories()
     {
         return new Category[]
