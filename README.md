@@ -2,7 +2,7 @@
 
 This is a video sharing service that allows users to upload videos and share them with other users. The service also provides a Swagger UI to test the API.
 
-Created as part of the [Alura Challenge](https://www.alura.com.br/challenge-back-end) 2021. :rocket:
+Created as part of the [Alura Challenge](https://www.alura.com.br/challenges/back-end) 2021. :rocket:
 
 ## Getting Started
 
@@ -25,6 +25,7 @@ If you want to run this service only, please follow the instructions below.
     *Note: the connection string above is for a local PostgreSQL instance running on the default port with the default username and password. You can change it to match your local setup.*
 
 ## How to run
+
 Run `dotnet watch run` in the project's root folder.
 
 ## How to use
@@ -37,7 +38,8 @@ The service exposes a REST API that can be used to authenticate users. The API i
 The service has a set of unit tests that can be run using the `dotnet test` command.
 
 ## Built With
-- [.NET 7](https://dotnet.microsoft.com/download/dotnet/7.0) - The web framework used
+- [Docker](https://www.docker.com/) - Containerization
+- [ASP.NET Core](https://dotnet.microsoft.com/apps/aspnet) - Web framework
 - [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/) - ORM
 - [JWT](https://jwt.io/) - Authentication
 - [Swagger](https://swagger.io/) - API documentation
