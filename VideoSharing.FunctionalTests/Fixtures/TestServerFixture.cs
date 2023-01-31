@@ -9,6 +9,8 @@ public class TestServerFixture
             .CreateClient();
     }
 
+    public HttpClient Client { get; }
+
     private static TestServer CreateTestServer()
     {
         var webHostBuilder = new WebHostBuilder()
@@ -31,8 +33,6 @@ public class TestServerFixture
             })
             .UseStartup<Startup>();
 
-        return new TestServer(webHostBuilder);
+        return new(webHostBuilder);
     }
-
-    public HttpClient Client { get; }
 }
