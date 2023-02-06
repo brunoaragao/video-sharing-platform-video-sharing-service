@@ -1,21 +1,41 @@
+// <copyright file="Startup.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+
 using AluraChallenge.VideoSharingPlatform.Services.VideoSharing.API.Data;
 using AluraChallenge.VideoSharingPlatform.Services.VideoSharing.API.Extensions;
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+
 namespace AluraChallenge.VideoSharingPlatform.Services.VideoSharing.API;
 
+/// <summary>
+/// Represents the startup class.
+/// </summary>
 public class Startup
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Startup"/> class.
+    /// </summary>
+    /// <param name="configuration">The configuration.</param>
     public Startup(IConfiguration configuration)
     {
-        Configuration = configuration;
+        this.Configuration = configuration;
     }
 
+    /// <summary>
+    /// Gets the configuration.
+    /// </summary>
     public IConfiguration Configuration { get; }
 
+    /// <summary>
+    /// Configures the services.
+    /// </summary>
+    /// <param name="services">The services.</param>
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddDbContext<VideoSharingContext>(options =>
@@ -29,15 +49,15 @@ public class Startup
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
-                var key = Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]!);
+                var key = Encoding.UTF8.GetBytes(this.Configuration["Jwt:Key"]!);
 
                 options.TokenValidationParameters = new()
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidIssuer = Configuration["Jwt:Issuer"],
-                    ValidAudience = Configuration["Jwt:Issuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                    ValidIssuer = this.Configuration["Jwt:Issuer"],
+                    ValidAudience = this.Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
                 };
             });
 
@@ -53,13 +73,18 @@ public class Startup
             options.SwaggerDoc("v1", new()
             {
                 Title = "VideoSharing API",
-                Version = "v1"
+                Version = "v1",
             });
 
             options.UseJwtBearerSecurityScheme();
         });
     }
 
+    /// <summary>
+    /// Configures the application.
+    /// </summary>
+    /// <param name="app">The application.</param>
+    /// <param name="env">The environment.</param>
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())

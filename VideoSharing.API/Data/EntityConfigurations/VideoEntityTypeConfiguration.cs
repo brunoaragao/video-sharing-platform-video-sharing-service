@@ -1,11 +1,20 @@
+// <copyright file="VideoEntityTypeConfiguration.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using AluraChallenge.VideoSharingPlatform.Services.VideoSharing.API.Models;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using AluraChallenge.VideoSharingPlatform.Services.VideoSharing.API.Models;
 
 namespace AluraChallenge.VideoSharingPlatform.Services.VideoSharing.API.Data.EntityConfigurations;
 
+/// <summary>
+/// Configures the <see cref="Video"/> entity.
+/// </summary>
 public class VideoEntityTypeConfiguration : IEntityTypeConfiguration<Video>
 {
+    /// <inheritdoc/>
     public void Configure(EntityTypeBuilder<Video> builder)
     {
         builder.ToTable("video");

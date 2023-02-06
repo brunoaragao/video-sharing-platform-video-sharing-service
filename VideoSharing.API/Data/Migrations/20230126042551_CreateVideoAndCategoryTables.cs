@@ -1,4 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿// <copyright file="20230126042551_CreateVideoAndCategoryTables.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using Microsoft.EntityFrameworkCore.Migrations;
+
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -18,7 +23,7 @@ namespace VideoSharing.API.Data.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
                     name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    color = table.Column<string>(type: "character(7)", fixedLength: true, maxLength: 7, nullable: false)
+                    color = table.Column<string>(type: "character(7)", fixedLength: true, maxLength: 7, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -34,7 +39,7 @@ namespace VideoSharing.API.Data.Migrations
                     title = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     description = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: false),
                     url = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: false),
-                    categoryid = table.Column<int>(name: "category_id", type: "integer", nullable: false)
+                    categoryid = table.Column<int>(name: "category_id", type: "integer", nullable: false),
                 },
                 constraints: table =>
                 {
