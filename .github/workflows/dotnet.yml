@@ -31,7 +31,7 @@ jobs:
       run: dotnet restore
       
     - name: .NET Lint
-      uses: zyactions/dotnet-lint@v1
+      uses: zyactions/dotnet-lint@v1.0.0
         workflow
       
     - name: Build
