@@ -25,7 +25,7 @@ jobs:
     - name: Install .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        workspace: .
+        workspace: '-'
         
     - name: Install dependencies
       run: dotnet restore
