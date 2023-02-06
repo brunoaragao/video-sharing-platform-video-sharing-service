@@ -189,7 +189,7 @@ public class CategoriesControllerTest
     public async Task GetCategories_UsingSearch_ReturnsPaginatedCategoriesWithCorrectPagination()
     {
         // Arrange
-        const string search = "Category";
+    const string search = "Category";
         const int expectedPageIndex = 0;
         const int expectedTotalPages = 1;
         const int expectedTotalItems = 4;
