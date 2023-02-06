@@ -72,7 +72,7 @@ public class CategoriesControllerTest
     {
         // Arrange
         const int expectedPageIndex = 0;
-        const int expectedTotalPages = 1;
+        const int expectedTotalPages = 10;
         const int expectedTotalItems = 5;
 
         using var context = this.fixture.CreateContext();
