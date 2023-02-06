@@ -1,14 +1,27 @@
+// <copyright file="TestServerFixture.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace AluraChallenge.VideoSharingPlatform.Services.VideoSharing.FunctionalTests;
 
+/// <summary>
+/// Represents the test server fixture.
+/// </summary>
 public class TestServerFixture
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TestServerFixture"/> class.
+    /// </summary>
     public TestServerFixture()
     {
-        Client = CreateTestServer()
+        this.Client = CreateTestServer()
             .SeedDatabaseToTest()
             .CreateClient();
     }
 
+    /// <summary>
+    /// Gets the <see cref="HttpClient"/> to be used in the tests.
+    /// </summary>
     public HttpClient Client { get; }
 
     private static TestServer CreateTestServer()

@@ -1,11 +1,20 @@
+// <copyright file="CategoryEntityTypeConfiguration.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using AluraChallenge.VideoSharingPlatform.Services.VideoSharing.API.Models;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using AluraChallenge.VideoSharingPlatform.Services.VideoSharing.API.Models;
 
 namespace AluraChallenge.VideoSharingPlatform.Services.VideoSharing.API.Data.EntityConfigurations;
 
+/// <summary>
+/// Configures the <see cref="Category"/> entity.
+/// </summary>
 public class CategoryEntityTypeConfiguration : IEntityTypeConfiguration<Category>
 {
+    /// <inheritdoc/>
     public void Configure(EntityTypeBuilder<Category> builder)
     {
         builder.ToTable("category");
@@ -29,7 +38,6 @@ public class CategoryEntityTypeConfiguration : IEntityTypeConfiguration<Category
             .IsFixedLength();
 
         builder.HasData(
-            new Category { Id = 1, Name = "Default", Color = "#000000" }
-        );
+            new Category { Id = 1, Name = "Default", Color = "#000000" });
     }
 }

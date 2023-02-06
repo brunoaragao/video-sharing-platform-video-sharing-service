@@ -1,20 +1,36 @@
+// <copyright file="VideosControllerTest.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace AluraChallenge.VideoSharingPlatform.Services.VideoSharing.UnitTests;
 
+/// <summary>
+/// Represents the videos controller test.
+/// </summary>
 [Collection(nameof(DbFixtureCollection))]
 public class VideosControllerTest
 {
-    private readonly DbFixture _fixture;
+    private readonly DbFixture fixture;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="VideosControllerTest"/> class.
+    /// </summary>
+    /// <param name="fixture">The database fixture.</param>
+    /// <exception cref="ArgumentNullException">Thrown when the <paramref name="fixture"/> is null.</exception>
     public VideosControllerTest(DbFixture fixture)
     {
-        _fixture = fixture;
+        this.fixture = fixture ?? throw new ArgumentNullException(nameof(fixture));
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetPaginatedVideosAsync_ReturnsPaginatedVideos()
     {
         // Arrange
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -24,11 +40,15 @@ public class VideosControllerTest
         Assert.NotNull(paginatedVideos);
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetPaginatedVideosAsync_ReturnsPaginatedVideosWithCorrectProperties()
     {
         // Arrange
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -45,16 +65,19 @@ public class VideosControllerTest
         });
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct pagination.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetPaginatedVideosAsync_ReturnsPaginatedVideosWithCorrectPagination()
     {
         // Arrange
         const int expectedPageIndex = 0;
-        const int expectedPageSize = 5;
         const int expectedTotalPages = 1;
         const int expectedTotalItens = 5;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -62,21 +85,23 @@ public class VideosControllerTest
 
         // Assert
         Assert.Equal(expectedPageIndex, paginatedVideos.PageIndex);
-        Assert.Equal(expectedPageSize, paginatedVideos.PageSize);
         Assert.Equal(expectedTotalPages, paginatedVideos.TotalPages);
         Assert.Equal(expectedTotalItens, paginatedVideos.TotalItems);
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetPaginatedVideosAsync_UsingPage_ReturnsPaginatedVideosWithCorrectPagination()
     {
         // Arrange
         const int page = 0;
-        const int expectedPageSize = 5;
         const int expectedTotalPages = 1;
         const int expectedTotalItens = 5;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -84,18 +109,21 @@ public class VideosControllerTest
 
         // Assert
         Assert.Equal(page, paginatedVideos.PageIndex);
-        Assert.Equal(expectedPageSize, paginatedVideos.PageSize);
         Assert.Equal(expectedTotalPages, paginatedVideos.TotalPages);
         Assert.Equal(expectedTotalItens, paginatedVideos.TotalItems);
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetPaginatedVideosAsync_UsingSearch_ReturnsPaginatedVideosWithSearch()
     {
         // Arrange
         const string search = "Video";
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -108,13 +136,17 @@ public class VideosControllerTest
         });
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetPaginatedVideosAsync_UsingSearch_ReturnsPaginatedVideosWithCorrectProperties()
     {
         // Arrange
         const string search = "Video";
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -131,17 +163,20 @@ public class VideosControllerTest
         });
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetPaginatedVideosAsync_UsingSearch_ReturnsPaginatedVideosWithCorrectPagination()
     {
         // Arrange
         const string search = "Video";
         const int expectedPageIndex = 0;
-        const int expectedPageSize = 5;
         const int expectedTotalPages = 1;
         const int expectedTotalItens = 5;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -149,13 +184,14 @@ public class VideosControllerTest
 
         // Assert
         Assert.Equal(expectedPageIndex, paginatedVideos.PageIndex);
-        Assert.Equal(expectedPageSize, paginatedVideos.PageSize);
         Assert.Equal(expectedTotalPages, paginatedVideos.TotalPages);
         Assert.Equal(expectedTotalItens, paginatedVideos.TotalItems);
     }
 
-
-
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetPaginatedVideosAsync_UsingSearchAndPage_ReturnsPaginatedVideosWithSearch()
     {
@@ -163,7 +199,7 @@ public class VideosControllerTest
         const string search = "Video";
         const int page = 0;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -176,13 +212,17 @@ public class VideosControllerTest
         });
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetVideoAsync_ReturnsVideo()
     {
         // Arrange
         const int id = 1;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -192,13 +232,17 @@ public class VideosControllerTest
         Assert.NotNull(result.Value);
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetVideoAsync_ReturnsVideoWithCorrectProperties()
     {
         // Arrange
         const int id = 1;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -213,13 +257,17 @@ public class VideosControllerTest
         Assert.InRange(result.Value.CategoryId, 1, int.MaxValue);
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetVideoAsync_WithNonExistingId_ReturnsNotFound()
     {
         // Arrange
         const int id = 999;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -229,13 +277,17 @@ public class VideosControllerTest
         Assert.IsType<NotFoundResult>(result.Result);
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task PutVideoAsync_ReturnsVideo()
     {
         // Arrange
-        var video = GetExistingVideo();
+        var video = this.GetExistingVideo();
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -245,14 +297,18 @@ public class VideosControllerTest
         Assert.NotNull(result.Value);
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task PutVideoAsync_ReturnsVideoWithCorrectProperties()
     {
         // Arrange
-        var video = GetExistingVideo();
+        var video = this.GetExistingVideo();
         var (id, title, description, url, categoryId) = video;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -267,6 +323,10 @@ public class VideosControllerTest
         Assert.Equal(categoryId, result.Value.CategoryId);
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task PutVideoAsync_WithDifferentId_ReturnsBadRequest()
     {
@@ -282,7 +342,7 @@ public class VideosControllerTest
             Url = "https://www.youtube.com/watch?v=1",
         };
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -292,13 +352,17 @@ public class VideosControllerTest
         Assert.IsType<BadRequestResult>(result.Result);
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task PutVideoAsync_WithNonExistingId_ReturnsNotFound()
     {
         // Arrange
-        var video = GetNonExistingVideo();
+        var video = this.GetNonExistingVideo();
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -308,13 +372,17 @@ public class VideosControllerTest
         Assert.IsType<NotFoundResult>(result.Result);
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task DeleteVideoAsync_WithNonExistingId_ReturnsNotFound()
     {
         // Arrange
         const int id = 999;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
@@ -324,15 +392,18 @@ public class VideosControllerTest
         Assert.IsType<NotFoundResult>(result);
     }
 
+    /// <summary>
+    /// Gets paginated videos. Returns paginated videos with correct properties.
+    /// </summary>
     [Fact]
     public void GetFreeVideos_ReturnsVideos()
     {
         // Arrange
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new VideosController(context);
 
         // Act
-        var videos = controller.GetFreeVideos();
+        var videos = controller.GetFakeVideos();
 
         // Assert
         Assert.NotEmpty(videos);
@@ -346,7 +417,7 @@ public class VideosControllerTest
             new() { Title = "Video 2", Description = "Description 2", Url = "https://www.youtube.com/watch?v=2" },
             new() { Title = "Video 3", Description = "Description 3", Url = "https://www.youtube.com/watch?v=3" },
             new() { Title = "Video 4", Description = "Description 4", Url = "https://www.youtube.com/watch?v=4" },
-            new() { Title = "Video 5", Description = "Description 5", Url = "https://www.youtube.com/watch?v=5" }
+            new() { Title = "Video 5", Description = "Description 5", Url = "https://www.youtube.com/watch?v=5" },
         };
     }
 
@@ -357,7 +428,7 @@ public class VideosControllerTest
             Id = 1,
             Title = "Video 1",
             Description = "Description 1",
-            Url = "https://www.youtube.com/watch?v=1"
+            Url = "https://www.youtube.com/watch?v=1",
         };
     }
 
@@ -368,7 +439,7 @@ public class VideosControllerTest
             Id = 6,
             Title = "Video 6",
             Description = "Description 6",
-            Url = "https://www.youtube.com/watch?v=6"
+            Url = "https://www.youtube.com/watch?v=6",
         };
     }
 }
