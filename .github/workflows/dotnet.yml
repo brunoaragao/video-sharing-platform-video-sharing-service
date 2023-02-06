@@ -25,13 +25,14 @@ jobs:
     - name: Install .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: ${{ matrix.dotnet-version }}
+        workspace: .
         
     - name: Install dependencies
       run: dotnet restore
       
     - name: .NET Lint
       uses: zyactions/dotnet-lint@v1
+        workflow
       
     - name: Build
       run: dotnet build --configuration Release --no-restore
