@@ -30,7 +30,7 @@ public class VideoSharingContext : DbContext
     /// <summary>
     /// Gets the <see cref="DbSet{TEntity}"/> for <see cref="Category"/> entities.
     /// </summary>
-    public DbSet<Category> Categories { get; private set; } = null!;
+public DbSet<Category> Categories { get; private set; } = null!;
 
     /// <inheritdoc/>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
