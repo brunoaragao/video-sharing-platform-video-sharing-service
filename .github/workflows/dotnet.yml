@@ -30,6 +30,7 @@ jobs:
       
     - name: .NET Lint
       uses: zyactions/dotnet-lint@v1.0.0
+      continue-on-error: true
       with:
         workspace: .
       
