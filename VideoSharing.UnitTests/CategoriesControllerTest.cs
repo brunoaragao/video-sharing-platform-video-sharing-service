@@ -1,38 +1,58 @@
+// <copyright file="CategoriesControllerTest.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace AluraChallenge.VideoSharingPlatform.Services.VideoSharing.UnitTests;
 
+/// <summary>
+/// Represents the categories controller test.
+/// </summary>
 [Collection(nameof(DbFixtureCollection))]
 public class CategoriesControllerTest
 {
-    private readonly DbFixture _fixture;
+    private readonly DbFixture fixture;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CategoriesControllerTest"/> class.
+    /// </summary>
+    /// <param name="fixture">The database fixture.</param>
+    /// <exception cref="ArgumentNullException">Thrown when the <paramref name="fixture"/> is null.</exception>
     public CategoriesControllerTest(DbFixture fixture)
     {
-        _fixture = fixture;
+        this.fixture = fixture ?? throw new ArgumentNullException(nameof(fixture));
     }
 
+    /// <summary>
+    /// Gets categories. Returns paginated categories.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategories_ReturnsPaginatedCategories()
     {
         // Arrange
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var paginatedCategories = await controller.GetCategories();
+        var paginatedCategories = await controller.GetPaginatedCategories();
 
         // Assert
         Assert.NotNull(paginatedCategories);
     }
 
+    /// <summary>
+    /// Gets categories. Returns paginated categories with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategories_ReturnsPaginatedCategoriesWithCorrectProperties()
     {
         // Arrange
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var paginatedCategories = await controller.GetCategories();
+        var paginatedCategories = await controller.GetPaginatedCategories();
 
         // Assert
         Assert.All(paginatedCategories.Items, category =>
@@ -43,28 +63,34 @@ public class CategoriesControllerTest
         });
     }
 
+    /// <summary>
+    /// Gets categories. Returns paginated categories with correct pagination.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategories_ReturnsPaginatedCategoriesWithCorrectPagination()
     {
         // Arrange
         const int expectedPageIndex = 0;
-        const int expectedPageSize = 5;
         const int expectedTotalPages = 1;
         const int expectedTotalItems = 5;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var paginatedCategories = await controller.GetCategories();
+        var paginatedCategories = await controller.GetPaginatedCategories();
 
         // Assert
         Assert.Equal(expectedPageIndex, paginatedCategories.PageIndex);
-        Assert.Equal(expectedPageSize, paginatedCategories.PageSize);
         Assert.Equal(expectedTotalPages, paginatedCategories.TotalPages);
         Assert.Equal(expectedTotalItems, paginatedCategories.TotalItems);
     }
 
+    /// <summary>
+    /// Gets categories using page. Returns paginated categories.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategories_UsingPage_ReturnsPaginatedCategoriesWithCorrectPagination()
     {
@@ -72,50 +98,56 @@ public class CategoriesControllerTest
         const int page = 0;
 
         const int expectedPageIndex = 0;
-        const int expectedPageSize = 5;
         const int expectedTotalPages = 1;
         const int expectedTotalItems = 5;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var paginatedCategories = await controller.GetCategories(page);
+        var paginatedCategories = await controller.GetPaginatedCategories(page);
 
         // Assert
         Assert.Equal(expectedPageIndex, paginatedCategories.PageIndex);
-        Assert.Equal(expectedPageSize, paginatedCategories.PageSize);
         Assert.Equal(expectedTotalPages, paginatedCategories.TotalPages);
         Assert.Equal(expectedTotalItems, paginatedCategories.TotalItems);
     }
 
+    /// <summary>
+    /// Gets categories using search. Returns paginated categories.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategories_UsingSearch_ReturnsPaginatedCategories()
     {
         // Arrange
         const string search = "Category";
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var paginatedCategories = await controller.GetCategories(search: search);
+        var paginatedCategories = await controller.GetPaginatedCategories(search: search);
 
         // Assert
         Assert.NotNull(paginatedCategories);
     }
 
+    /// <summary>
+    /// Gets categories using search. Returns paginated categories with search result.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
-    public async Task GetCategories_UsingSearch_ReturnsPaginatedCategoriesWithSearch()
+    public async Task GetCategories_UsingSearch_ReturnsPaginatedCategoriesWithSearchResult()
     {
         // Arrange
         const string search = "Category";
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var paginatedCategories = await controller.GetCategories(search: search);
+        var paginatedCategories = await controller.GetPaginatedCategories(search: search);
 
         // Assert
         Assert.All(paginatedCategories.Items, category =>
@@ -124,19 +156,21 @@ public class CategoriesControllerTest
         });
     }
 
-
-
+    /// <summary>
+    /// Gets categories using search. Returns paginated categories with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategories_UsingSearch_ReturnsPaginatedCategoriesWithCorrectProperties()
     {
         // Arrange
         const string search = "Category";
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var paginatedCategories = await controller.GetCategories(search: search);
+        var paginatedCategories = await controller.GetPaginatedCategories(search: search);
 
         // Assert
         Assert.All(paginatedCategories.Items, category =>
@@ -147,29 +181,35 @@ public class CategoriesControllerTest
         });
     }
 
+    /// <summary>
+    /// Gets categories using search. Returns paginated categories with correct pagination.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategories_UsingSearch_ReturnsPaginatedCategoriesWithCorrectPagination()
     {
         // Arrange
         const string search = "Category";
         const int expectedPageIndex = 0;
-        const int expectedPageSize = 5;
         const int expectedTotalPages = 1;
         const int expectedTotalItems = 4;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var paginatedCategories = await controller.GetCategories(search: search);
+        var paginatedCategories = await controller.GetPaginatedCategories(search: search);
 
         // Assert
         Assert.Equal(expectedPageIndex, paginatedCategories.PageIndex);
-        Assert.Equal(expectedPageSize, paginatedCategories.PageSize);
         Assert.Equal(expectedTotalPages, paginatedCategories.TotalPages);
         Assert.Equal(expectedTotalItems, paginatedCategories.TotalItems);
     }
 
+    /// <summary>
+    /// Gets categories using search and page. Returns paginated categories.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategories_UsingSearchAndPage_ReturnsPaginatedCategoriesWithCorrectPagination()
     {
@@ -177,30 +217,32 @@ public class CategoriesControllerTest
         const string search = "Category";
         const int page = 2;
         const int expectedPageIndex = 2;
-        const int expectedPageSize = 5;
         const int expectedTotalPages = 1;
         const int expectedTotalItems = 4;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var paginatedCategories = await controller.GetCategories(page, search);
+        var paginatedCategories = await controller.GetPaginatedCategories(page, search);
 
         // Assert
         Assert.Equal(expectedPageIndex, paginatedCategories.PageIndex);
-        Assert.Equal(expectedPageSize, paginatedCategories.PageSize);
         Assert.Equal(expectedTotalPages, paginatedCategories.TotalPages);
         Assert.Equal(expectedTotalItems, paginatedCategories.TotalItems);
     }
 
+    /// <summary>
+    /// Gets categories using search and page. Returns paginated categories with search result.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategory_ReturnsCategory()
     {
         // Arrange
         const int id = 1;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
@@ -211,13 +253,17 @@ public class CategoriesControllerTest
         Assert.NotNull(result.Value);
     }
 
+    /// <summary>
+    /// Gets categories using search and page. Returns paginated categories with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategory_ReturnsCategoryWithCorrectProperties()
     {
         // Arrange
         const int id = 1;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
@@ -229,13 +275,17 @@ public class CategoriesControllerTest
         Assert.NotNull(result.Value?.Color);
     }
 
+    /// <summary>
+    /// Gets categories using search and page. Returns paginated categories with correct pagination.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategory_WithNonExistingId_ReturnsNotFound()
     {
         // Arrange
         const int id = 999;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
@@ -245,14 +295,18 @@ public class CategoriesControllerTest
         Assert.IsType<NotFoundResult>(result.Result);
     }
 
+    /// <summary>
+    /// Puts category. Returns category.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task PutCategory_ReturnsCategory()
     {
         // Arrange
-        var category = GetExistingCategory();
+        var category = this.GetExistingCategory();
         var (id, name, color) = category;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
@@ -266,6 +320,10 @@ public class CategoriesControllerTest
         Assert.Equal(color, updatedCategory.Color);
     }
 
+    /// <summary>
+    /// Puts category. Returns category with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task PutCategory_WithNonExistingId_ReturnsNotFound()
     {
@@ -278,10 +336,10 @@ public class CategoriesControllerTest
         {
             Id = id,
             Name = name,
-            Color = color
+            Color = color,
         };
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
@@ -291,6 +349,10 @@ public class CategoriesControllerTest
         Assert.IsType<NotFoundResult>(result.Result);
     }
 
+    /// <summary>
+    /// Puts category. Returns category with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task PutCategory_WithDifferentId_ReturnsBadRequest()
     {
@@ -302,10 +364,10 @@ public class CategoriesControllerTest
         {
             Id = differentId,
             Name = "Category 2",
-            Color = "#000000"
+            Color = "#000000",
         };
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
@@ -315,6 +377,10 @@ public class CategoriesControllerTest
         Assert.IsType<BadRequestResult>(result.Result);
     }
 
+    /// <summary>
+    /// Puts category. Returns category with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task PutCategory_WithDefaultId_ReturnsUnprocessableEntity()
     {
@@ -323,10 +389,10 @@ public class CategoriesControllerTest
         {
             Id = DefaultCategoryId,
             Name = "Category 1",
-            Color = "#000000"
+            Color = "#000000",
         };
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
@@ -336,13 +402,17 @@ public class CategoriesControllerTest
         Assert.IsType<UnprocessableEntityResult>(result.Result);
     }
 
+    /// <summary>
+    /// Puts category. Returns category with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task DeleteCategory_WithNonExistingId_ReturnsNotFound()
     {
         // Arrange
         const int id = 999;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
@@ -352,11 +422,15 @@ public class CategoriesControllerTest
         Assert.IsType<NotFoundResult>(result);
     }
 
+    /// <summary>
+    /// Puts category. Returns category with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task DeleteCategory_WithDefaultId_ReturnsUnprocessableEntity()
     {
         // Arrange
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
@@ -366,23 +440,30 @@ public class CategoriesControllerTest
         Assert.IsType<UnprocessableEntityResult>(result);
     }
 
+    /// <summary>
+    /// Puts category. Returns category with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategoryVideos_ReturnsPaginatedVideos()
     {
         // Arrange
         const int id = 1;
-        const int page = 1;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var result = await controller.GetCategoryVideos(id, page);
+        var result = await controller.GetPaginatedCategoryVideos(id);
 
         // Assert
         Assert.NotNull(result.Value);
     }
 
+    /// <summary>
+    /// Puts category. Returns category with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategoryVideos_ReturnsPaginatedVideosWithCorrectProperties()
     {
@@ -390,11 +471,11 @@ public class CategoriesControllerTest
         const int id = 1;
         const int page = 1;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var result = await controller.GetCategoryVideos(id, page);
+        var result = await controller.GetPaginatedCategoryVideos(id, page);
 
         // Assert
         var actionResult = Assert.IsType<ActionResult<PaginatedItemsViewModel<Video>>>(result);
@@ -408,6 +489,10 @@ public class CategoriesControllerTest
         });
     }
 
+    /// <summary>
+    /// Puts category. Returns category with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategoryVideos_WithNonExistingId_ReturnsNotFound()
     {
@@ -415,16 +500,20 @@ public class CategoriesControllerTest
         const int id = 999;
         const int page = 1;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var result = await controller.GetCategoryVideos(id, page);
+        var result = await controller.GetPaginatedCategoryVideos(id, page);
 
         // Assert
         Assert.IsType<NotFoundResult>(result.Result);
     }
 
+    /// <summary>
+    /// Puts category. Returns category with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategoryVideos_UsingSearch_ReturnsPaginatedVideos()
     {
@@ -432,16 +521,20 @@ public class CategoriesControllerTest
         const int id = 1;
         const string search = "Video";
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var paginatedVideos = await controller.GetCategoryVideos(id, search: search);
+        var paginatedVideos = await controller.GetPaginatedCategoryVideos(id, search: search);
 
         // Assert
         Assert.NotNull(paginatedVideos);
     }
 
+    /// <summary>
+    /// Puts category. Returns category with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategoryVideos_UsingSearch_ReturnsPaginatedVideosWithCorrectProperties()
     {
@@ -449,11 +542,11 @@ public class CategoriesControllerTest
         const int id = 1;
         const string search = "Video";
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var result = await controller.GetCategoryVideos(id, search: search);
+        var result = await controller.GetPaginatedCategoryVideos(id, search: search);
 
         // Assert
         var actionResult = Assert.IsType<ActionResult<PaginatedItemsViewModel<Video>>>(result);
@@ -467,6 +560,10 @@ public class CategoriesControllerTest
         });
     }
 
+    /// <summary>
+    /// Puts category. Returns category with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategoryVideos_UsingSearch_ReturnsPaginatedVideosWithCorrectSearch()
     {
@@ -474,11 +571,11 @@ public class CategoriesControllerTest
         const int id = 1;
         const string search = "Video";
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var result = await controller.GetCategoryVideos(id, search: search);
+        var result = await controller.GetPaginatedCategoryVideos(id, search: search);
 
         // Assert
         var actionResult = Assert.IsType<ActionResult<PaginatedItemsViewModel<Video>>>(result);
@@ -490,6 +587,10 @@ public class CategoriesControllerTest
         });
     }
 
+    /// <summary>
+    /// Puts category. Returns category with correct properties.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
     [Fact]
     public async Task GetCategoryVideos_UsingPage_ReturnsPaginatedVideos()
     {
@@ -497,11 +598,11 @@ public class CategoriesControllerTest
         const int id = 1;
         const int page = 1;
 
-        using var context = _fixture.CreateContext();
+        using var context = this.fixture.CreateContext();
         var controller = new CategoriesController(context);
 
         // Act
-        var result = await controller.GetCategoryVideos(id, page);
+        var result = await controller.GetPaginatedCategoryVideos(id, page);
 
         // Assert
         Assert.NotNull(result.Value);
@@ -515,7 +616,7 @@ public class CategoriesControllerTest
             new() { Name = "Category 2", Color = "#000000" },
             new() { Name = "Category 3", Color = "#000000" },
             new() { Name = "Category 4", Color = "#000000" },
-            new() { Name = "Category 5", Color = "#000000" }
+            new() { Name = "Category 5", Color = "#000000" },
         };
     }
 
@@ -525,7 +626,7 @@ public class CategoriesControllerTest
         {
             Id = 2,
             Name = "Category 2",
-            Color = "#000000"
+            Color = "#000000",
         };
     }
 }

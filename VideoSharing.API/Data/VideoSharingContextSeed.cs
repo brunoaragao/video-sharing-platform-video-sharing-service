@@ -1,52 +1,68 @@
-using Microsoft.EntityFrameworkCore;
+// <copyright file="VideoSharingContextSeed.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using AluraChallenge.VideoSharingPlatform.Services.VideoSharing.API.Models;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace AluraChallenge.VideoSharingPlatform.Services.VideoSharing.API.Data;
 
+/// <summary>
+/// Represents the seed data for the Video Sharing API.
+/// </summary>
 public class VideoSharingContextSeed
 {
-    private readonly VideoSharingContext _context;
+    private readonly VideoSharingContext context;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="VideoSharingContextSeed"/> class.
+    /// </summary>
+    /// <param name="context">The <see cref="VideoSharingContext"/> to be used.</param>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="context"/> is <see langword="null"/>.</exception>
     public VideoSharingContextSeed(VideoSharingContext context)
     {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
+        this.context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
+    /// <summary>
+    /// Seeds the database.
+    /// </summary>
     public void Seed()
     {
-        _context.Database.Migrate();
+        this.context.Database.Migrate();
 
-        SeedCategories();
-        SeedVideos();
+        this.SeedCategories();
+        this.SeedVideos();
 
-        _context.SaveChanges();
+        this.context.SaveChanges();
     }
 
     private void SeedCategories()
     {
-        if (_context.Categories.Any(c => c.Id != Category.DefaultCategoryId))
+        if (this.context.Categories.Any(c => c.Id != Category.DefaultCategoryId))
         {
             return;
         }
 
-        _context.AddRange(new Category[]
+        this.context.AddRange(new Category[]
         {
             new() { Name = "Trailers", Color = "#000080" },
             new() { Name = "Movies", Color = "#FFFF00" },
             new() { Name = "Documentary", Color = "#008000" },
             new() { Name = "Animation", Color = "#808080" },
-            new() { Name = "Gaming", Color = "#800000" }
+            new() { Name = "Gaming", Color = "#800000" },
         });
     }
 
     private void SeedVideos()
     {
-        if (_context.Videos.Any())
+        if (this.context.Videos.Any())
         {
             return;
         }
 
-        _context.AddRange(new Video[]
+        this.context.AddRange(new Video[]
         {
             new() { Title = "The Matrix (1999) Official Trailer", Description = "The Matrix is a 1999 science fiction action film written and directed by ...", Url = "https://youtu.be/vKQi3bBA1y8" },
             new() { Title = "The Matrix Reloaded (2003) Official Trailer", Description = "The Matrix Reloaded is a 2003 science fiction action film written and directed by ...", Url = "https://youtu.be/kYzz0FSgpSU" },
